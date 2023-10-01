@@ -1,6 +1,117 @@
-\section{Intro}
+\section{Static Games}
 
-\textbf{State Space Model} is on the form
+
+\textbf{Game representation} \newline
+A game contains two players
 \begin{align*}
-    \dot{\bm{x}} = \bm{f}(\bm{x},\bm{u},t)
+    & P_1 & P_2
+\end{align*}
+with a finite number of actions
+\begin{align*}
+    &\Gamma = \{\gamma_1, \cdots , \gamma_n\} & 
+    \Sigma = \{\sigma_1, \cdots , \sigma_m\}
+\end{align*}
+Each possible combination of action has an outcome
+for each player
+\begin{align*}
+    & J_1(\gamma_i, \sigma_j) & J_2(\gamma_i, \sigma_j)
+\end{align*}
+this can be represented in a matrix
+\begin{align*}
+    A \in \mathbb{R}^{n \times m}, \quad A_{ij} = J_1(\gamma_i, \sigma_j) \\
+    B \in \mathbb{R}^{n \times m}, \quad B_{ij} = J_2(\gamma_i, \sigma_j)
+\end{align*}
+
+
+\textbf{Action dominance} \newline
+We say that $\gamma_i$ dominates $\gamma_k$ for the minimizing player $P_1$ if
+\begin{align*}
+    J_1(\gamma_i, \sigma_j) \leq J_1(\gamma_k, \sigma_j) \quad \forall \sigma_j \in \Sigma
+\end{align*}
+
+
+\textbf{Security level} \newline
+The security level of the minimizing player $P_1$ is defined by
+\begin{align*}
+    \bar{J_1} = \min_{\gamma_i \in \Gamma} \max_{\sigma_j \in \Sigma} J_1(\gamma_i, \sigma_j)
+\end{align*}
+
+
+\textbf{Security policy} \newline
+The security policy of the minimizing player $P_1$ is defined by
+\begin{align*}
+    \argmin_{\gamma_i \in \Gamma} \max_{\sigma_j \in \Sigma} J_1(\gamma_i, \sigma_j)
+\end{align*}
+
+
+\textbf{Nash equilibrium} \newline
+Given a static two-player game described by the two payoff functions
+$J_1(\gamma,\sigma)$ and $J_2(\gamma,\sigma)$, a Nash equilibrium (for minimizing
+players) is a pair of actions
+\begin{align*}
+    (\gamma^*, \sigma^*) \in \Gamma\times\Sigma
+\end{align*}
+such that
+\begin{align*}
+    J_1{\gamma^*, \sigma^*} &\leq J_1{\gamma, \sigma^*} \quad &\forall \gamma \in \Gamma \\
+    J_2(\gamma^*, \sigma^*) &\leq J_2(\gamma^*, \sigma) \quad &\forall \sigma \in \Sigma
+\end{align*}
+
+
+\textbf{Admissible Nash equilibria} \newline
+A Nash equilibrium $(\gamma^*, \sigma^*)$ is admissible if there is no other Nash
+equilibrium $(\tilde{\gamma}, \tilde\sigma)$ such that
+\begin{align*}
+    J_1(\tilde\gamma, \tilde\sigma) &\leq J_1(\gamma^*, \sigma^*) \\
+    J_2(\tilde\gamma, \tilde\sigma) &\leq J_2(\gamma^*, \sigma^*)
+\end{align*}
+with at least one strict inequality.
+
+
+\textbf{Mixed strategies} \newline
+A mixed strategy is a stochastic strategy. Each action is played with a certain
+probability. Let $\gamma$ be the chosen strategy for player $P_1$ and $\sigma$
+the chosen strategy for player $P_2$. Define
+\begin{align*}
+    & P(\gamma = \gamma_i) = y_i & \bm{y} = (y_i)_i \\
+    & P(\sigma = \sigma_j) = z_j & \bm{z} = (z_j)_j
+\end{align*}
+
+
+\textbf{Expected outcome} \newline
+The expected outcome of a game is
+\begin{align*}
+    J_1(\bm{y}, \bm{z}) = \sum_{i=1}^n \sum_{j=1}^m y_i z_j A_{ij}  &= \bm{y^TAz}\\
+    J_2(\bm{y}, \bm{z}) = \sum_{i=1}^n \sum_{j=1}^m y_i z_j B_{ij}  &= \bm{y^TBz}\\
+\end{align*}
+
+
+\textbf{Mixed security level}
+The mixed security level of the minimizing player $P_1$ is defined by
+\begin{align*}
+    \bar{J_1^m} = \min_{\bm{y} \in \mathcal{Y}} \, \max_{\bm{z} \in \mathcal{Z}} y^TAz
+\end{align*}
+
+
+\textbf{Mixed security strategy}
+\begin{align*}
+    \argmin_{\bm{y}\in\mathcal{Y}} \max_{\bm{z}\in\mathcal{Z}} \bm{y^TAz}
+\end{align*}
+
+
+\textbf{Mixed Nash equilibria}
+Given a static two-player game described by the two payoff matrices $A$ and $B$,
+we say that the pair of mixed strategies 
+\begin{align*}
+    (\bm{y}^*, \bm{z}^*) \in \mathcal{Y}\times\mathcal{Z}
+\end{align*}
+are a mixed Nash Equilibrium for the two minimizing players if
+\begin{align*}
+    (\bm{y*})^T\bm{A}\bm{z^*} \leq (\bm{y})^T\bm{A}\bm{z^*} \quad \forall \bm{y} \in \mathcal{Y} \\
+    (\bm{y*})^T\bm{B}\bm{z^*} \leq (\bm{y*})^T\bm{B}\bm{z} \quad \forall \bm{z} \in \mathcal{Z}
+\end{align*}
+In general terms
+\begin{align*}
+    J_1(\bm{y^*}, \bm{z^*}) &\leq J_1(\bm{y}, \bm{z^*}) \quad \forall \bm{y} \in \mathcal{Y} \\
+    J_2(\bm{y^*}, \bm{z^*}) &\leq J_2(\bm{y^*}, \bm{z}) \quad \forall \bm{z} \in \mathcal{Z}
 \end{align*}
